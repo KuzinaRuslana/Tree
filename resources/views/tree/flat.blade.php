@@ -8,6 +8,20 @@
 <body>
     <h1>Дерево</h1>
     <h2>Плоский список</h2>
+    
+    <div>
+        <form method="GET" action="{{ route('tree.flat') }}">
+            <select name="node_id" id="node_id">
+                <option value="">Выбрать узел</option>
+                @foreach($allNodes as $node)
+                    <option value="{{ $node->id }}" {{ $selectedNodeId == $node->id ? 'selected' : '' }}>
+                        {{ $node->title }}
+                    </option>
+                @endforeach
+            </select>
+            <button type="submit">Показать</button>
+        </form>
+    </div>
 
     <ul>
         @foreach ($nodes as $node)

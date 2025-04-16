@@ -17,5 +17,20 @@
 
     <div>
         <h3>Изменить дерево</h3>
+
+            <form method="POST" action="{{ route('tree.store') }}">
+            @csrf
+                <label for="title">Добавить узел</label>
+                <input type="text" name="title" id="title" required>
+
+                <label for="parent_id">Родитель</label>
+                <select name="parent_id" id="parent_id">
+                <option value="">Корень</option>
+                    @foreach($allNodes as $node)
+                        <option value="{{ $node->id }}">{{ $node->title }}</option>
+                    @endforeach
+                </select>
+                <button type="submit">Добавить</button>
+            </form>
 </body>
 </html>
