@@ -9,7 +9,7 @@ class TreeController extends Controller
 {
     public function getTreeStructure()
     {
-        $nodes = Node::whereNull('parent_id')->with('children')->get();
+        $nodes = Node::whereNull('parent_id')->with('childrenRecursive')->get();
 
         return view('tree.index', compact('nodes'));
     }
