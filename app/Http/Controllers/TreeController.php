@@ -40,10 +40,15 @@ class TreeController extends Controller
             $selectedNode = Node::with('childrenRecursive')->findOrFail($selectedNodeId);
             $nodes = $this->flatten($selectedNode);
         } else {
-            $nodes = Node::all();
+            $roots = Node::whereNull('parent_id')->with('childrenRecursive')->get();
+            $nodes = [];
+        
+            foreach ($roots as $root) {
+                $nodes = array_merge($nodes, $this->flatten($root));
+            }
         }
 
-        $allNodes = Node::all();
+        $allNodes = Node::orderBy('title')->get();
     
         return view('tree.flat', compact('nodes', 'allNodes', 'selectedNodeId'));
     }
