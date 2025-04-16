@@ -10,4 +10,9 @@ class Node extends Model
     {
         return $this->hasMany(Node::class, 'parent_id');
     }
+
+    public function childrenRecursive()
+    {
+        return $this->children()->with('childrenRecursive');
+    }
 }
