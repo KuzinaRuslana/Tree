@@ -11,26 +11,11 @@
 
     <ul>
         @foreach ($nodes as $node)
-            <li>
-                {{ $node->title }}
-                @if ($node->children->count())
-                    <ul>
-                        @foreach ($node->children as $child)
-                            <li>
-                                {{ $child->title }}
-                                @if ($child->children->count())
-                                    <ul>
-                                        @foreach ($child->children as $grandchild)
-                                            <li>{{ $grandchild->title }}</li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-            </li>
+            @include('tree.recursive', ['node' => $node])
         @endforeach
     </ul>
+
+    <div>
+        <h3>Изменить дерево</h3>
 </body>
 </html>
