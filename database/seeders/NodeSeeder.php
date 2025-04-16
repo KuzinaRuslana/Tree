@@ -12,6 +12,8 @@ class NodeSeeder extends Seeder
     {
         $level1 = Node::create(['title' => 'Уровень 1']);
         $child11 = Node::create(['title' => 'Потомок 1.1', 'parent_id' => $level1->id]);
+        $child111 = Node::create(['title' => 'Потомок 1.1.1', 'parent_id' => $child11->id]);
+        $child1111 = Node::create(['title' => 'Потомок 1.1.1.1', 'parent_id' => $child111->id]);
         $child12 = Node::create(['title' => 'Потомок 1.2', 'parent_id' => $level1->id]);
         $child121 = Node::create(['title' => 'Потомок 1.2.1', 'parent_id' => $child12->id]);
 
