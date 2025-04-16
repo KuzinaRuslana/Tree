@@ -7,5 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tree', [TreeController::class, 'getTreeStructure'])->name('tree.index');
-Route::get('/tree/flat', [TreeController::class, 'getFlatList'])->name('tree.flat');
+Route::get('tree', [TreeController::class, 'getTreeStructure'])->name('tree.index');
+Route::post('tree', [TreeController::class, 'store'])->name('tree.store');
+Route::get('tree/flat', [TreeController::class, 'getFlatList'])->name('tree.flat');
