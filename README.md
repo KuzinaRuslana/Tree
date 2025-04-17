@@ -1,3 +1,5 @@
+[![My check](https://github.com/KuzinaRuslana/Tree/actions/workflows/my-check.yml/badge.svg)](https://github.com/KuzinaRuslana/Tree/actions/workflows/my-check.yml)
+
 ### Requirements
 + PHP version >= 8.2
 + Laravel >= 12.0
