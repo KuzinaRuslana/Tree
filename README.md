@@ -1,3 +1,4 @@
+[![Maintainability](https://qlty.sh/badges/9391337e-a135-4148-ba53-3c84bda73b0d/maintainability.svg)](https://qlty.sh/gh/KuzinaRuslana/projects/Tree)
 [![My check](https://github.com/KuzinaRuslana/Tree/actions/workflows/my-check.yml/badge.svg)](https://github.com/KuzinaRuslana/Tree/actions/workflows/my-check.yml)
 
 ### Requirements
