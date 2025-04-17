@@ -6,7 +6,7 @@
     <title>Дерево</title>
 </head>
 <body>
-    <h1>Дерево</h1>
+    <h1><a href="{{ url('/') }}">Дерево</a></h1>
     <h2>Структура дерева</h2>
 
     <ul>
@@ -32,5 +32,19 @@
                 </select>
                 <button type="submit">Добавить</button>
             </form>
+
+            <hr>
+            <form method="POST" action="{{ route('tree.destroy') }}">
+            @csrf
+            @method('DELETE')
+
+            <label>Удалить узел</label>
+            <select name="node_id" required>
+                @foreach ($allNodes as $node)
+                    <option value="{{ $node->id }}">{{ $node->title }}</option>
+                @endforeach
+            </select>
+            <button type="submit" onclick="return confirm('Вы точно хотите удалить этот узел?')">Удалить</button>
+</form>
 </body>
 </html>

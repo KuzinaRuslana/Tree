@@ -10,8 +10,8 @@ class TreeController extends Controller
     public function getTreeStructure(Request $request)
     {
         $selectedNodeId = $request->input('node_id');
-        
-        $nodes = Node::whereNull('parent_id')->with('childrenRecursive')->get();
+
+        $nodes = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
         $allNodes = Node::all();
 
         return view('tree.index', compact('nodes', 'allNodes'));
@@ -40,19 +40,19 @@ class TreeController extends Controller
             $selectedNode = Node::with('childrenRecursive')->findOrFail($selectedNodeId);
             $nodes = $this->flatten($selectedNode);
         } else {
-            $roots = Node::whereNull('parent_id')->with('childrenRecursive')->get();
+            $roots = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
             $nodes = [];
-        
+
             foreach ($roots as $root) {
                 $nodes = array_merge($nodes, $this->flatten($root));
             }
         }
 
         $allNodes = Node::orderBy('title')->get();
-    
+
         return view('tree.flat', compact('nodes', 'allNodes', 'selectedNodeId'));
     }
-    
+
     private function flatten(Node $node): array
     {
         $result = [$node];
@@ -60,7 +60,14 @@ class TreeController extends Controller
         foreach ($node->children as $child) {
             $result = array_merge($result, $this->flatten($child));
         }
-    
+
         return $result;
+    }
+
+    public function destroy(Request $request)
+    {
+        Node::findOrFail($request['node_id'])->delete();
+
+        return redirect()->route('tree.index');
     }
 }
