@@ -9,8 +9,6 @@ class TreeController extends Controller
 {
     public function getTreeStructure(Request $request)
     {
-        $selectedNodeId = $request->input('node_id');
-
         $nodes = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
         $allNodes = Node::all();
 
