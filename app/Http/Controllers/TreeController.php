@@ -48,11 +48,11 @@ class TreeController extends Controller
         } else {
             $roots = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
             $nodes = [];
-    
+
             foreach ($roots as $root) {
                 $nodes = array_merge($nodes, $this->flatten($root));
             }
-    
+
             return $nodes;
         }
     }
