@@ -9,3 +9,6 @@ lint:
 
 prepare:
 	php artisan migrate --seed
+
+test:
+	php artisan test --testsuite=Feature

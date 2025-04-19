@@ -40,7 +40,7 @@ class TreeController extends Controller
         return view('tree.flat', compact('nodes', 'allNodes', 'selectedNodeId'));
     }
 
-    private function getFlatListNodes($selectedNodeId)
+    public function getFlatListNodes($selectedNodeId)
     {
         if ($selectedNodeId) {
             $selectedNode = Node::with('childrenRecursive')->findOrFail($selectedNodeId);
