@@ -33,22 +33,28 @@ class TreeController extends Controller
     public function getFlatList(Request $request)
     {
         $selectedNodeId = $request->input('node_id');
-
-        if ($selectedNodeId) {
-            $selectedNode = Node::with('childrenRecursive')->findOrFail($selectedNodeId);
-            $nodes = $this->flatten($selectedNode);
-        } else {
-            $roots = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
-            $nodes = [];
-
-            foreach ($roots as $root) {
-                $nodes = array_merge($nodes, $this->flatten($root));
-            }
-        }
+        $nodes = $this->getFlatListNodes($selectedNodeId);
 
         $allNodes = Node::orderBy('title')->get();
 
         return view('tree.flat', compact('nodes', 'allNodes', 'selectedNodeId'));
+    }
+
+    protected function getFlatListNodes($selectedNodeId)
+    {
+        if ($selectedNodeId) {
+            $selectedNode = Node::with('childrenRecursive')->findOrFail($selectedNodeId);
+            return $this->flatten($selectedNode);
+        } else {
+            $roots = Node::whereNull('parent_id')->orderBy('title')->with('childrenRecursive')->get();
+            $nodes = [];
+    
+            foreach ($roots as $root) {
+                $nodes = array_merge($nodes, $this->flatten($root));
+            }
+    
+            return $nodes;
+        }
     }
 
     private function flatten(Node $node): array
