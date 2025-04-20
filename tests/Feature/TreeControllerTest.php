@@ -26,7 +26,7 @@ class TreeControllerTest extends TestCase
         $controller = new TreeController();
         $nodes = $controller->getFlatListNodes(null);
         $actual = array_map(fn($node) => $node->title, $nodes);
-    
+
         $this->assertSame($expected, $actual);
     }
 
@@ -45,7 +45,7 @@ class TreeControllerTest extends TestCase
         $response = $this->delete(route('tree.destroy', ['node_id' => $node->id]));
         $response->assertRedirect(route('tree.index'));
 
-        $this->assertDatabaseMissing('nodes', $node->only('id'));        
+        $this->assertDatabaseMissing('nodes', $node->only('id'));
     }
 }
 
